@@ -2,23 +2,23 @@
   "name": "employee-tracker",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && node dist/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ryannarnoldd/Employee-Tracker.git"
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "inquirer": "^8.2.4",
+    "pg": "^8.11.3"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ryannarnoldd/Employee-Tracker/issues"
-  },
-  "homepage": "https://github.com/ryannarnoldd/Employee-Tracker#readme",
-  "dependencies": {
-    "inquirer": "^8.2.4",
-    "pg": "^8.13.0"
+  "devDependencies": {
+    "@types/pg": "^8.11.6",
+    "typescript": "^5.2.2"
   }
 }
