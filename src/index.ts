@@ -1,5 +1,6 @@
-function test(str: string) {
-    console.log(str);
-}
+import Cli from './classes/Cli.js'
 
-test("Hello World");
+// run the schema file.
+
+const cli = new Cli();
+cli.mainMenu();

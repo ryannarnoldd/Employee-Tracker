@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "db": "psql -U postgres",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build && node dist/index.js"
@@ -18,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/inquirer": "^9.0.7",
     "@types/pg": "^8.11.6",
     "typescript": "^5.2.2"
   }
