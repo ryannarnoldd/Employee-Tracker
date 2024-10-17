@@ -25,12 +25,10 @@ while (!exit) {
     .then(async (answers) => {
         switch (answers.action) {
 
-            // Done.
             case 'View All Employees':
                 await viewAll('employee');
                 break;
 
-            // Progress.
             case 'Add Employee':
 
                 await inquirer.prompt([
