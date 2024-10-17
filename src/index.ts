@@ -32,14 +32,25 @@ while (!exit) {
 
             // Progress.
             case 'Add Employee':
-                const employee: Employee = {
-                    first_name: 'Rick',
-                    last_name: 'Jamie',
-                    role_id: 2,
-                    manager_id: 3
-                };
 
-                await addEmployee(employee);
+                await inquirer.prompt([
+                    { type: 'input', name: 'first_name', message: 'Enter the employee\'s first name' },
+                    { type: 'input', name: 'last_name', message: 'Enter the employee\'s last name' },
+                    { type: 'input', name: 'role_id', message: 'Enter the employee\'s role ID' },
+                    { type: 'input', name: 'manager_id', message: 'Enter the employee\'s manager ID' },
+                ])
+                .then(async (answers) => {
+                    const employee: Employee = {
+                        first_name: answers.first_name,
+                        last_name: answers.last_name,
+                        role_id: parseInt(answers.role_id),
+                        manager_id: parseInt(answers.manager_id)
+                    };
+
+                    await addEmployee(employee);
+
+                });
+
                 break;
 
             case 'Update Employee Role':

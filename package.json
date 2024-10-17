@@ -1,11 +1,10 @@
 {
   "name": "employee-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is an employee tracker.",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "db": "psql -U postgres",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build && node dist/index.js"

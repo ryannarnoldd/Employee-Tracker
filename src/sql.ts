@@ -23,7 +23,7 @@ export async function addEmployee(employee: Employee): Promise<void> {
     try {
         await pool.query(sql, params);
 
-        console.log(first_name, last_name, ' added!');
+        console.log(first_name, last_name, 'added!');
 
     } catch (err) {
         console.error(err);
