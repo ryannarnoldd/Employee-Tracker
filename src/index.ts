@@ -21,11 +21,11 @@ while (!exit) {
             ],
         },
     ])
-    .then((answers) => {
+    .then(async (answers) => {
         switch (answers.action) {
 
             case 'View All Employees':
-                viewAll('employee');
+                await viewAll('employee');
                 
                 break;
             case 'Add Employee':
@@ -46,9 +46,9 @@ while (!exit) {
                 console.log('Add Role');
                 break;
             case 'View All Departments':
-
                 viewAll('department');
                 break;
+
             case 'Add Department':
 
                 console.log('Add Department');

@@ -3,13 +3,17 @@ import { pool, connectToDb } from './db/connection.js';
 
 await connectToDb();
 
-export const viewAll = async (type: string) => {
-    pool.query(`SELECT * FROM ${type}`, (err: Error, result: QueryResult) => {
-        if (err) {
-            console.log(err);
-        } else if (result) {
-            console.table(result.rows);
-        }
+export async function viewAll(type: string): Promise<void> {
+    try {
+        const result: QueryResult = await pool.query(`SELECT * FROM ${type}`);
+        console.table(result.rows);
+    } catch (err) {
+        console.error(err);
     }
-    )
 }
+
+
+
+
+
+// https://node-postgres.com/apis/pool 
