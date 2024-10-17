@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
-import { viewAll } from "./sql.js";
+import { viewAll, addEmployee } from "./sql.js";
+import { Employee } from "./types.js";
 
 let exit: boolean = false;
 
@@ -24,13 +25,21 @@ while (!exit) {
     .then(async (answers) => {
         switch (answers.action) {
 
+            // Done?
             case 'View All Employees':
                 await viewAll('employee');
-                
                 break;
-            case 'Add Employee':
 
-                console.log('Add Employee');
+            // Progress.
+            case 'Add Employee':
+                const employee: Employee = {
+                    first_name: 'Rick',
+                    last_name: 'Jamie',
+                    role_id: 2,
+                    manager_id: 3
+                };
+
+                await addEmployee(employee);
                 break;
 
             case 'Update Employee Role':
