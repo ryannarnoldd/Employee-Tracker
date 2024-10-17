@@ -6,3 +6,13 @@ export interface Employee {
     role_id: number;
     manager_id: number;
 }
+
+export interface Role {
+    title: string;
+    salary: number;
+    department_id: number;
+}
+
+export interface Department {
+    name: string;
+}

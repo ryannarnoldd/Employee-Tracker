@@ -1,13 +1,12 @@
 import { QueryResult } from 'pg';
 import { pool, connectToDb } from './db/connection.js';
-import { Employee } from './types.js';
+import { Employee, Role, Department } from './types.js';
 
 await connectToDb();
  
 export async function viewAll(type: string): Promise<void> {
-    const sql = `SELECT * FROM ${type}`;
     try {
-        const result: QueryResult = await pool.query(sql);
+        const result: QueryResult = await pool.query(`SELECT * FROM ${type}`);
         console.table(result.rows);
     } catch (err) {
         console.error(err);
@@ -17,12 +16,8 @@ export async function viewAll(type: string): Promise<void> {
 export async function addEmployee(employee: Employee): Promise<void> {
     const { first_name, last_name, role_id, manager_id } = employee;
 
-
-    const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)`;
-    const params = [first_name, last_name, role_id, manager_id];
     try {
-        await pool.query(sql, params);
-
+        await pool.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)`, [first_name, last_name, role_id, manager_id]);
         console.log(first_name, last_name, 'added!');
 
     } catch (err) {
@@ -30,6 +25,29 @@ export async function addEmployee(employee: Employee): Promise<void> {
     }
 }
 
+export async function addRole(role: Role): Promise<void> {
+    const { title, salary, department_id } = role;
+
+    try {
+        await pool.query(`INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`, [title, salary, department_id]);
+        console.log(title, 'added!');
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export async function addDepartment(department: Department): Promise<void> {
+    const { name } = department;
+
+    try {
+        await pool.query(`INSERT INTO department (name) VALUES ($1)`, [name]);
+        console.log(name, 'added!');
+
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 
 

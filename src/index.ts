@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
-import { viewAll, addEmployee } from "./sql.js";
-import { Employee } from "./types.js";
+import { viewAll, addEmployee, addRole, addDepartment } from "./sql.js";
+import { Employee, Role } from "./types.js";
 
 let exit: boolean = false;
 
@@ -25,7 +25,7 @@ while (!exit) {
     .then(async (answers) => {
         switch (answers.action) {
 
-            // Done?
+            // Done.
             case 'View All Employees':
                 await viewAll('employee');
                 break;
@@ -54,28 +54,52 @@ while (!exit) {
                 break;
 
             case 'Update Employee Role':
-
                 console.log('Update Employee Role');
                 break;
+
             case 'View All Roles':
-
-                viewAll('role');
+                await viewAll('role');
                 break;
+
             case 'Add Role':
+                await inquirer.prompt([
+                    { type: 'input', name: 'title', message: 'Enter the role\'s title' },
+                    { type: 'input', name: 'salary', message: 'Enter the role\'s salary' },
+                    { type: 'input', name: 'department_id', message: 'Enter the role\'s department ID' }
+                ])
+                .then(async (answers) => {
+                    const role: Role = {
+                        title: answers.title,
+                        salary: parseInt(answers.salary),
+                        department_id: parseInt(answers.department_id)
+                    };
 
-                console.log('Add Role');
+                    await addRole(role);
+
+                });
                 break;
+
             case 'View All Departments':
                 viewAll('department');
                 break;
 
             case 'Add Department':
+                inquirer.prompt([{ type: 'input', name: 'name', message: 'Enter the department\'s name' }])
+                .then(async (answers) => {
+                    const Department = {
+                        name: answers.name
+                    };
 
-                console.log('Add Department');
+                    await addDepartment(Department);
+                });
                 break;
+
             case 'Quit':
                 exit = true;
                 break;
+
+            default:
+                console.log('Invalid action');
         }
     });
 }
