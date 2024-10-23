@@ -2,9 +2,7 @@ import inquirer from "inquirer";
 import { viewAll, addEmployee, addRole, addDepartment, getDepartmentList, getDepartmentID, getManagerList, getRoleList, getEmployeeList, updateEmployeeRole } from "./sql.js";
 import { Employee, Role } from "./types.js";
 
-let exit: boolean = false;
-
-while (!exit) {
+while (true) {
     await inquirer.prompt([
         {
             type: 'list',
@@ -90,11 +88,11 @@ while (!exit) {
                 break;
 
             case 'View All Departments':
-                viewAll('department');
+                await viewAll('department');
                 break;
 
             case 'Add Department':
-                inquirer.prompt([{ type: 'input', name: 'name', message: 'Enter the department\'s name' }])
+                await inquirer.prompt([{ type: 'input', name: 'name', message: 'Enter the department\'s name' }])
                 .then(async (answers) => {
                     const Department = {
                         name: answers.name
@@ -105,10 +103,9 @@ while (!exit) {
                 break;
 
             case 'Quit':
-                exit = true;
-                break;
+                console.log('Goodbye!');
+                process.exit(0);
 
-            default:
                 console.log('Invalid action');
         }
     });

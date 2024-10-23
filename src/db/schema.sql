@@ -19,3 +19,7 @@ CREATE TABLE employee (
     role_id INTEGER NOT NULL,
     manager_id INTEGER
 );
+
+TRUNCATE TABLE department;
+TRUNCATE TABLE role;
+TRUNCATE TABLE employee;

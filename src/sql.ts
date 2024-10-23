@@ -3,6 +3,7 @@ import { pool, connectToDb } from './db/connection.js';
 import { Employee, Role, Department } from './types.js';
 
 await connectToDb();
+
  
 export async function viewAll(type: string): Promise<void> {
     try {
