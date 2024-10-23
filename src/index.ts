@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { viewAll, addEmployee, addRole, addDepartment } from "./sql.js";
+import { viewAll, addEmployee, addRole, addDepartment, getDepartmentList, getDepartmentID, getManagerList, getRoleList, getEmployeeList, updateEmployeeRole } from "./sql.js";
 import { Employee, Role } from "./types.js";
 
 let exit: boolean = false;
@@ -30,29 +30,40 @@ while (!exit) {
                 break;
 
             case 'Add Employee':
+                const managers = await getManagerList();
+                const roles = await getRoleList();
 
                 await inquirer.prompt([
                     { type: 'input', name: 'first_name', message: 'Enter the employee\'s first name' },
                     { type: 'input', name: 'last_name', message: 'Enter the employee\'s last name' },
-                    { type: 'input', name: 'role_id', message: 'Enter the employee\'s role ID' },
-                    { type: 'input', name: 'manager_id', message: 'Enter the employee\'s manager ID' },
-                ])
+                    { type: 'list', name: 'role', message: 'Enter the employee\'s role', choices: roles },
+                    { type: 'list', name: 'manager', message: 'Select the employee\'s manager ID', choices: managers }])
                 .then(async (answers) => {
                     const employee: Employee = {
                         first_name: answers.first_name,
                         last_name: answers.last_name,
-                        role_id: parseInt(answers.role_id),
-                        manager_id: parseInt(answers.manager_id)
+                        role: answers.role,
+                        manager: answers.manager
                     };
 
                     await addEmployee(employee);
-
                 });
-
                 break;
 
             case 'Update Employee Role':
-                console.log('Update Employee Role');
+                const employees = await getEmployeeList();
+                const roleList = await getRoleList();
+
+                await inquirer.prompt([
+                    { type: 'list', name: 'employee', message: 'Select the employee to update', choices: employees },
+                    { type: 'list', name: 'role', message: 'Select the employee\'s new role', choices: roleList }
+                ])
+                .then(async (answers) => {
+                    await updateEmployeeRole(answers.employee, answers.role);
+                });
+            
+
+
                 break;
 
             case 'View All Roles':
@@ -60,20 +71,21 @@ while (!exit) {
                 break;
 
             case 'Add Role':
+                const departments = await getDepartmentList();
+
                 await inquirer.prompt([
                     { type: 'input', name: 'title', message: 'Enter the role\'s title' },
                     { type: 'input', name: 'salary', message: 'Enter the role\'s salary' },
-                    { type: 'input', name: 'department_id', message: 'Enter the role\'s department ID' }
+                    { type: 'list', name: 'department_id', message: 'Select the role\'s department ID', choices: departments}
                 ])
                 .then(async (answers) => {
                     const role: Role = {
                         title: answers.title,
                         salary: parseInt(answers.salary),
-                        department_id: parseInt(answers.department_id)
+                        department_id: await getDepartmentID(answers.department_id)
                     };
 
                     await addRole(role);
-
                 });
                 break;
 
