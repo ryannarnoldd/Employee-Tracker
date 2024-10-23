@@ -40,10 +40,10 @@ The license used is MIT. Here is the link to get detailed information for this l
 
 ## Tests
 
-Here are some screenshots of the application in action from the command line.
+Here are some screenshots of the application in action from the command line. All examples are from the video walkthrough.
 
 ## Questions
 
 You can also find me on GitHub at [ryannarnoldd](https://www.github.com/ryannarnoldd).
 
-If you have any questions, please contact me at [ryannarnoldd@gmail.com](mailto:ryannarnoldd@gmail.com).
+If you have any questions, please contact me at [ryannarnoldd@gmail.com](mailto:ryannarnoldd@gmail.com). 
